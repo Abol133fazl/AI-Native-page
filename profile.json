@@ -1,0 +1,96 @@
+{
+  "$schema_info": "Personal AI-Native Page Record. Fields with visibility 'public' may be shared. Fields with 'private' must be refused.",
+  "personal_info": {
+    "name": "Abolfazl Ghasemi",
+    "university": "Sharif University of Technology",
+    "department": "Computer Engineering",
+    "degree": "B.Sc. in Computer Engineering",
+    "status": "Senior Undergraduate Student",
+    "bio": "Passionate about Distributed Systems, AI Engineering, and Backend Architecture.",
+    "visibility": {
+      "name": "public",
+      "university": "public",
+      "degree": "public",
+      "status": "public",
+      "bio": "public",
+      "gpa": "private",
+      "phone": "private",
+      "national_id": "private",
+      "salary_expectation": "private"
+    },
+    "private_records": {
+      "gpa": "18.40",
+      "phone": "+989123456789",
+      "salary_expectation": "Negotiable / Confidential"
+    }
+  },
+  "guardrails_and_authority": {
+    "cannot_do": [
+      "Send emails on user's behalf",
+      "Book meetings, calendar slots, or interviews",
+      "Speak officially on behalf of Sharif University of Technology"
+    ],
+    "restricted_topics": [
+      "Political or religious opinions",
+      "Personal internal course grades (GPAs)",
+      "Private phone numbers and contact credentials"
+    ]
+  },
+  "skills": {
+    "languages": ["Python", "C++", "Go", "SQL"],
+    "frameworks": ["FastAPI", "Docker", "PyTorch", "PostgreSQL"],
+    "concepts": ["RESTful APIs", "RAG Systems", "Compiler Construction", "Data Modeling"]
+  },
+  "courses": [
+    {
+      "id": "CS210",
+      "name": "Data Structures & Algorithms",
+      "topics": ["Binary Search Trees", "Dynamic Programming", "Graph Theory", "Sorting Algorithms"],
+      "visibility": "public"
+    },
+    {
+      "id": "CS442",
+      "name": "Artificial Intelligence",
+      "topics": ["Search Heuristics", "Reinforcement Learning", "NLP", "Neural Networks"],
+      "visibility": "public"
+    },
+    {
+      "id": "CS312",
+      "name": "Compiler Design",
+      "topics": ["Lexical Analysis", "LLVM Backend", "Abstract Syntax Trees", "Code Optimization"],
+      "visibility": "public"
+    },
+    {
+      "id": "CS350",
+      "name": "Database Systems",
+      "topics": ["Relational Algebra", "Query Optimization", "Indexing & B-Trees", "ACID Transactions"],
+      "visibility": "public"
+    }
+  ],
+  "projects": [
+    {
+      "id": "compiler",
+      "title": "Cool Object-Oriented Compiler",
+      "summary": "A full compiler for the Cool language in C++ that emits optimized x86 assembly code.",
+      "stack": ["C++", "Flex", "Bison", "x86 Assembly"],
+      "features": ["Type checking", "Register allocation", "Dead code elimination"],
+      "visibility": "public"
+    },
+    {
+      "id": "ai_page",
+      "title": "AI-Native Grounded Personal Agent",
+      "summary": "An intelligent personal portfolio with zero hallucinations, strict guardrails, and explainable trace logs.",
+      "stack": ["Python", "FastAPI", "OpenAI API", "Docker", "Darkube"],
+      "features": ["Explainability trace logs", "Strict schema guardrails", "Third-party book search integration"],
+      "visibility": "public"
+    },
+    {
+      "id": "cloud_store",
+      "title": "Distributed Key-Value Store",
+      "summary": "A fault-tolerant distributed in-memory key-value store using Raft consensus algorithm.",
+      "stack": ["Go", "gRPC", "Raft", "Docker"],
+      "features": ["Leader election", "Log replication", "Snapshotting"],
+      "visibility": "public"
+    }
+  ]
+}
