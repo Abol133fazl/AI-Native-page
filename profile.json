@@ -1,94 +1,249 @@
 {
-  "$schema_description": "Record of student profile with explicit visibility markers (public vs private) and guardrails.",
+  "$schema_info": "Sharif CE AI-Native Profile - Comprehensive Single Source of Truth",
   "personal_info": {
     "name": "Abolfazl Ghasemi",
     "university": "Sharif University of Technology",
-    "department": "Computer Engineering Department",
+    "department": "Department of Computer Engineering",
     "degree": "B.Sc. in Computer Engineering",
-    "bio": "Undergraduate student passionate about AI-native systems, compilers, and backend engineering.",
+    "entry_year": 2024,
+    "status": "Senior Undergraduate Student",
+    "bio": "Computer Engineering student with strong interests in Software Systems, AI Engineering, and Cloud Infrastructure.",
+    "email": "abolfazl.ghasemi12@ce.sharif.edu",
+    "github_username": "Abol133fazl",
+    
     "visibility": {
       "name": "public",
       "university": "public",
       "department": "public",
       "degree": "public",
       "bio": "public",
+      "email": "public",
+      "github_username": "public",
       "gpa": "private",
       "phone_number": "private",
       "national_id": "private",
-      "salary_expectation": "private"
+      "salary_expectation": "private",
+      "home_address": "private"
     },
+    
     "private_records": {
-      "gpa": "18.35",
-      "phone_number": "+98-912-345-6789",
-      "salary_expectation": "Confidential"
+      "gpa": "17.02 / 20.0",
+      "phone_number": "+98-938-879-0925",
+      "national_id": "442*******",
+      "salary_expectation": "Negotiable based on role",
+      "home_address": "Tehran, Iran"
     }
   },
-  "guardrails_and_limits": {
-    "forbidden_actions": [
-      "Send email on candidate's behalf",
-      "Schedule or book meetings and calendar slots",
-      "Speak officially on behalf of Sharif University of Technology"
+
+  "guardrails_and_authority": {
+    "cannot_do": [
+      "Send email messages on candidate's behalf",
+      "Schedule meetings, calendar slots, or interview dates",
+      "Speak officially for Sharif University of Technology or make institutional statements"
     ],
     "restricted_topics": [
-      "Political or religious opinions",
-      "Internal grades or GPA values",
-      "Personal contact numbers and private credentials"
+      "Candidate's political, ideological, or religious stances",
+      "Confidential grades, transcripts, or exact GPA numbers",
+      "Private personal phone numbers, home address, and government identification numbers"
     ]
   },
+
   "skills": {
-    "programming_languages": ["Python", "C++", "C", "SQL", "Java", "R", "Rust"],
-    "frameworks_and_tools": ["FastAPI", "Docker", "Git", "PyTorch", "Linux", "PostgreSQL"],
-    "core_concepts": ["Data Structures", "Algorithm Design", "Compilers", "RESTful APIs", "RAG Systems"]
+    "programming_languages": [
+      {"name": "Java", "level": "Advanced"},
+      {"name": "C++", "level": "Advanced"},
+      {"name": "C", "level": "Advanced"},
+      {"name": "Python", "level": "Intermediate"},
+      {"name": "R", "level": "Elementary"},
+      {"name": "Rust", "level": "Elementary"},
+      {"name": "SQL", "level": "Elementary"},
+      {"name": "Bash / Shell", "level": "Working Knowledge"}
+    ],
+    "frameworks_and_libraries": [
+      "FastAPI", "Docker", "JavaFX", "Ncurses", "ModelSim", "Git", "Linux", "GDB & Valgrind"
+    ],
+    "domains": [
+      "AI Systems & LLM Grounding",
+      "Network Socket Programming",
+      "Game Engine & Graphics Architecture",
+      "Computer Architecture & Superscalar Processors",
+      "Object-Oriented Software Design"
+    ]
   },
+
   "courses": [
     {
-      "id": "CS210",
-      "name": "Data Structures & Algorithms",
-      "topics": ["Binary Search Trees", "Dynamic Programming", "Graph Algorithms", "Hash Tables"],
+      "code": "40153",
+      "title": "Fundamentals of Programming",
+      "semester": "Fall 2024",
+      "topics": [
+        "C Programming",
+        "C Terminal Grapghics",
+        "Fundamentals of Engineering"
+      ],
       "visibility": "public"
     },
     {
-      "id": "CS442",
-      "name": "Artificial Intelligence",
-      "topics": ["Search Heuristics", "Reinforcement Learning", "NLP", "Neural Networks"],
+      "code": "40212",
+      "title": "Logical Circuits",
+      "semester": "Spring 2025",
+      "topics": [
+        "Fundamentals of Logical Circuits"
+      ],
       "visibility": "public"
     },
     {
-      "id": "CS312",
-      "name": "Compiler Design",
-      "topics": ["Lexical Analysis", "Context-Free Grammars", "LLVM", "Code Generation"],
+      "code": "40244",
+      "title": "Advanced Programming",
+      "semester": "Spring 2025",
+      "topics": [
+        "Java Programming",
+        "Java Graphics",
+        "Object Oriented Programming",
+        "Fundamentals of Networking"
+      ],
       "visibility": "public"
     },
     {
-      "id": "CS350",
-      "name": "Database Systems",
-      "topics": ["Relational Algebra", "SQL Optimization", "ACID Transactions", "Indexing"],
+      "code": "40153",
+      "title": "Discrete Structure",
+      "semester": "Spring 2025",
+      "topics": [
+        "Discrete mathematics",
+        "Fundamentals of Algorithms"
+      ],
+      "visibility": "public"
+    },
+    {
+      "code": "40254",
+      "title": "Data Structures & Algorithms",
+      "semester": "Fall 2025",
+      "topics": [
+        "Balanced Search Trees (AVL, Red-Black)",
+        "Dynamic Programming",
+        "Graph Algorithms (Dijkstra, MST, BFS/DFS)",
+        "Sorting & Divide-and-Conquer"
+      ],
+      "visibility": "public"
+    },
+    {
+      "code": "40417",
+      "title": "Artificial Intelligence",
+      "semester": "Spring 2026",
+      "topics": [
+        "Heuristic Search & A* Algorithm",
+        "Adversarial Search & Game Trees",
+        "Markov Decision Processes & Reinforcement Learning",
+        "Foundations of Machine Learning & Neural Networks"
+      ],
+      "visibility": "public"
+    },
+    {
+      "code": "40282",
+      "title": "Linear Algebra",
+      "semester": "Spring 2026",
+      "topics": [
+      ],
+      "visibility": "public"
+    },
+    {
+      "code": "40323",
+      "title": "Computer Architecture",
+      "semester": "Spring 2026",
+      "topics": [
+      ],
+      "visibility": "public"
+    },
+    {
+      "code": "40424",
+      "title": "Operating Systems",
+      "semester": "Fall 2026",
+      "topics": [
+        "Process Scheduling & Concurrency",
+        "Memory Management & Virtual Memory",
+        "File Systems & Synchronization Primitives",
+        "Kernel Architecture"
+      ],
+      "visibility": "public"
+    },
+    {
+      "code": "CE384",
+      "title": "Database Design",
+      "semester": "Fall 2026",
+      "topics": [
+        "Relational Algebra & Normalization",
+        "SQL Query Optimization",
+        "ACID Transactions & Concurrency Control",
+        "B+ Tree Indexing"
+      ],
       "visibility": "public"
     }
   ],
-  "projects": [
+
+ "projects": [
     {
-      "id": "compiler",
-      "title": "Cool Language Compiler",
-      "summary": "An optimizing compiler for the Cool object-oriented language written in C++ that emits x86 assembly.",
-      "stack": ["C++", "Flex", "Bison", "x86 Assembly"],
-      "features": ["Type checking", "Abstract Syntax Trees", "Register allocation"],
+      "id": "ai_native_page",
+      "title": "AI-Native Personal Page Agent",
+      "date": "Spring 2026",
+      "summary": "An intelligent personal profile system with zero hallucinations, strict explainability traces, external book API integration, and cloud deployment on Hamravesh Darkube.",
+      "stack": ["Python", "FastAPI", "OpenAI API", "Docker", "Hamravesh Darkube"],
+      "highlights": [
+        "Strict JSON grounding preventing model hallucinations",
+        "Runtime explainability trace panel showing intent and field paths",
+        "Automated deployment on Hamravesh Cloud"
+      ],
       "visibility": "public"
     },
     {
-      "id": "ai_page",
-      "title": "AI-Native Personal Portfolio",
-      "summary": "A strictly grounded personal web agent featuring explainability traces, external book API integration, and security guardrails.",
-      "stack": ["Python", "FastAPI", "OpenAI API", "Docker", "Darkube"],
-      "features": ["Zero hallucination", "Trace inspector", "Hamravesh Cloud deployment"],
+      "id": "rogue_game",
+      "title": "Terminal-Based Rogue-like Dungeon Crawler",
+      "date": "Fall 2024",
+      "summary": "A full-featured turn-based rogue-like dungeon crawler developed entirely in C for Unix terminals, featuring procedurally generated levels and rich ASCII animations.",
+      "stack": ["C", "Ncurses", "Procedural Generation", "Makefile", "GDB", "Valgrind"],
+      "highlights": [
+        "Implemented procedural level generation algorithms (Binary Space Partitioning / Cellular Automata) for unique maps",
+        "Turn-based state machine, field-of-view (FOV) raycasting, and enemy AI pathfinding",
+        "Rigorous low-level memory management and pointer arithmetic with zero memory leaks verified by Valgrind"
+      ],
       "visibility": "public"
     },
     {
-      "id": "distributed_kv",
-      "title": "Distributed Key-Value Store",
-      "summary": "A replicated fault-tolerant in-memory key-value database implementing Raft consensus.",
-      "stack": ["Python", "gRPC", "Raft Consensus", "Docker"],
-      "features": ["Leader election", "Log replication", "Heartbeat mechanism"],
+      "id": "twenty_minutes_dawn",
+      "title": "20 Minutes Till Dawn - 2D Survival Horde Shooter",
+      "date": "Spring 2025",
+      "summary": "A fast-paced 2D rogue-lite horde-survival action game built in Java with full graphical user interface, inspired by '20 Minutes Till Dawn'.",
+      "stack": ["Java", "JavaFX / Swing", "OOP Principles", "Design Patterns", "Multi-threading"],
+      "highlights": [
+        "Clean object-oriented architecture employing Factory, Strategy, and Observer design patterns for modular weapons and enemies",
+        "Efficient spatial partitioning (spatial hashing) for broad-phase collision detection with hundreds of concurrent on-screen entities",
+        "Custom particle rendering pipeline, dynamic camera tracking, and upgrade progression system running smoothly at 60 FPS"
+      ],
+      "visibility": "public"
+    },
+    {
+      "id": "stardew_multiplayer",
+      "title": "Multiplayer Stardew Valley Farming Simulator",
+      "date": "Spring 2025",
+      "summary": "A rich 2D graphical farming and life simulation game developed in Java, featuring real-time synchronous multiplayer support for up to 4 concurrent players over a network.",
+      "stack": ["Java", "JavaFX", "Socket Programming", "TCP/IP Networking", "Multithreading", "Data Serialization"],
+      "highlights": [
+        "Engineered a dedicated multi-threaded TCP client-server architecture with state synchronization to eliminate game state desyncs",
+        "Full simulation mechanics: grid-based farming, dynamic crop growth timers, NPC interactions, inventory management, and tile-map rendering",
+        "Custom packet serialization protocol facilitating smooth 4-player cooperative gameplay across a local or wide area network"
+      ],
+      "visibility": "public"
+    },
+    {
+      "id": "dual_issue_superscalar",
+      "title": "Dual-Issue Mini SuperScalar Processor Architecture",
+      "date": "Spring 2025",
+      "summary": "Architecture design and RTL simulation of a 32-bit dual-issue superscalar pipelined processor capable of fetching, decoding, and issuing up to two instructions per clock cycle.",
+      "stack": ["Verilog / SystemVerilog", "ModelSim", "Computer Architecture", "Instruction-Level Parallelism", "Assembly"],
+      "highlights": [
+        "Designed a dual-issue execution pipeline with hazard detection units for RAW, WAR, and WAW data dependencies",
+        "Integrated dynamic forwarding logic and branch hazard mitigation to maximize Instruction-Level Parallelism (ILP)",
+        "Verified processor functionality and throughput improvements using comprehensive testbenches running real assembly program workloads"
+      ],
       "visibility": "public"
     }
   ]
