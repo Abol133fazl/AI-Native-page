@@ -35,7 +35,7 @@
     }
   },
 
-  "guardrails_and_authority": {
+   "guardrails_and_authority": {
     "cannot_do": [
       "Send email messages on candidate's behalf",
       "Schedule meetings, calendar slots, or interview dates",
@@ -54,6 +54,7 @@
       {"name": "C++", "level": "Advanced"},
       {"name": "C", "level": "Advanced"},
       {"name": "Python", "level": "Intermediate"},
+      {"name": "Verilog / SystemVerilog", "level": "Intermediate"},
       {"name": "R", "level": "Elementary"},
       {"name": "Rust", "level": "Elementary"},
       {"name": "SQL", "level": "Elementary"},
@@ -76,111 +77,75 @@
       "code": "40153",
       "title": "Fundamentals of Programming",
       "semester": "Fall 2024",
-      "topics": [
-        "C Programming",
-        "C Terminal Grapghics",
-        "Fundamentals of Engineering"
-      ],
+      "topics": ["C Programming", "Terminal Graphics & Ncurses", "Pointers & Memory Allocation", "Algorithms"],
       "visibility": "public"
     },
     {
       "code": "40212",
       "title": "Logical Circuits",
       "semester": "Spring 2025",
-      "topics": [
-        "Fundamentals of Logical Circuits"
-      ],
+      "topics": ["Combinational Logic", "Sequential Circuits & Flip-Flops", "FSM Design", "K-Maps & Logic Minimization"],
       "visibility": "public"
     },
     {
       "code": "40244",
       "title": "Advanced Programming",
       "semester": "Spring 2025",
-      "topics": [
-        "Java Programming",
-        "Java Graphics",
-        "Object Oriented Programming",
-        "Fundamentals of Networking"
-      ],
+      "topics": ["Java Programming", "JavaFX Graphics", "Object-Oriented Design Patterns", "TCP/IP Sockets & Multithreading"],
       "visibility": "public"
     },
     {
-      "code": "40153",
-      "title": "Discrete Structure",
+      "code": "40156",
+      "title": "Discrete Structures",
       "semester": "Spring 2025",
-      "topics": [
-        "Discrete mathematics",
-        "Fundamentals of Algorithms"
-      ],
+      "topics": ["Discrete Mathematics", "Combinatorics", "Graph Theory Foundations", "Proof Techniques"],
       "visibility": "public"
     },
     {
       "code": "40254",
       "title": "Data Structures & Algorithms",
       "semester": "Fall 2025",
-      "topics": [
-        "Balanced Search Trees (AVL, Red-Black)",
-        "Dynamic Programming",
-        "Graph Algorithms (Dijkstra, MST, BFS/DFS)",
-        "Sorting & Divide-and-Conquer"
-      ],
+      "topics": ["Balanced Search Trees (AVL, Red-Black)", "Dynamic Programming", "Graph Algorithms (Dijkstra, MST)", "Sorting"],
       "visibility": "public"
     },
     {
       "code": "40417",
       "title": "Artificial Intelligence",
       "semester": "Spring 2026",
-      "topics": [
-        "Heuristic Search & A* Algorithm",
-        "Adversarial Search & Game Trees",
-        "Markov Decision Processes & Reinforcement Learning",
-        "Foundations of Machine Learning & Neural Networks"
-      ],
+      "topics": ["Heuristic Search & A*", "Adversarial Game Search", "Markov Decision Processes & RL", "Neural Networks"],
       "visibility": "public"
     },
     {
       "code": "40282",
       "title": "Linear Algebra",
       "semester": "Spring 2026",
-      "topics": [
-      ],
+      "topics": ["Vector Spaces & Subspaces", "Eigenvalues & Eigenvectors", "Orthogonality", "Matrix Decompositions (SVD)"],
       "visibility": "public"
     },
     {
       "code": "40323",
       "title": "Computer Architecture",
       "semester": "Spring 2026",
-      "topics": [
-      ],
+      "topics": ["Superscalar Execution", "Instruction Pipelining & Hazards", "Cache Hierarchy & Virtual Memory", "Branch Prediction"],
       "visibility": "public"
     },
     {
       "code": "40424",
       "title": "Operating Systems",
       "semester": "Fall 2026",
-      "topics": [
-        "Process Scheduling & Concurrency",
-        "Memory Management & Virtual Memory",
-        "File Systems & Synchronization Primitives",
-        "Kernel Architecture"
-      ],
+      "topics": ["Process Scheduling", "Concurrency & Deadlocks", "Virtual Memory & Page Replacement", "Kernel Architecture"],
       "visibility": "public"
     },
     {
       "code": "CE384",
       "title": "Database Design",
       "semester": "Fall 2026",
-      "topics": [
-        "Relational Algebra & Normalization",
-        "SQL Query Optimization",
-        "ACID Transactions & Concurrency Control",
-        "B+ Tree Indexing"
-      ],
+      "topics": ["Relational Algebra", "SQL Query Optimization", "ACID Transactions", "B+ Tree Indexing"],
       "visibility": "public"
     }
   ],
 
- "projects": [
+  "projects": [
     {
       "id": "ai_native_page",
       "title": "AI-Native Personal Page Agent",

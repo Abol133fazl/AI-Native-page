@@ -3,94 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ profile.personal_info.name }} - AI Native Page</title>
+    <title>{{ profile.personal_info.name }} | Sharif AI-Native Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-indigo {
+            box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.25);
+        }
+    </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen p-4 md:p-8 font-sans">
+<body class="bg-slate-950 text-slate-100 min-h-screen py-8 px-4 font-sans selection:bg-indigo-500 selection:text-white">
     <div class="max-w-4xl mx-auto space-y-6">
-        
-        <!-- Header -->
-        <header class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h1 class="text-2xl font-bold text-indigo-400">{{ profile.personal_info.name }}</h1>
-                    <p class="text-slate-400 text-sm">{{ profile.personal_info.degree }} - {{ profile.personal_info.university }}</p>
-                </div>
-                <span class="bg-emerald-950 text-emerald-400 border border-emerald-700 text-xs px-3 py-1 rounded-full font-mono">
-                    AI-Native Grounded
-                </span>
-            </div>
+
+        <!-- Top Header Profile Card -->
+        <header class="glass-panel glow-indigo rounded-2xl p-6 md:p-8 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
             
-            <!-- Guardrails warning banner -->
-            <div class="mt-4 p-3 bg-slate-900/80 rounded-lg border border-slate-700 text-xs text-slate-400">
-                <span class="font-bold text-amber-400">Guardrails:</span> 
-                This page answers ONLY from published records or Open Library API. Cannot send email, schedule meetings, or share private grades/contact info.
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-xl font-black shadow-lg shadow-indigo-500/20">
+                        {{ profile.personal_info.name[0] }}
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-2xl font-bold text-white tracking-tight">{{ profile.personal_info.name }}</h1>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-950 text-emerald-400 border border-emerald-800">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span> Grounded Agent
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs mt-0.5">
+                            {{ profile.personal_info.degree }} &bull; <span class="text-slate-300">{{ profile.personal_info.university }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 text-xs font-mono">
+                    <a href="https://github.com/{{ profile.personal_info.github_username }}" target="_blank" 
+                       class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-300 transition flex items-center gap-1.5">
+                        <i class="fa-brands fa-github text-sm"></i> GitHub
+                    </a>
+                    <span class="px-3 py-1.5 rounded-lg bg-indigo-950/60 border border-indigo-800/60 text-indigo-300">
+                        Hamravesh Darkube
+                    </span>
+                </div>
+            </div>
+
+            <!-- Guardrails Policy Banner -->
+            <div class="mt-5 p-3 rounded-xl bg-slate-900/90 border border-slate-800/80 text-xs text-slate-400 flex items-start gap-2.5">
+                <i class="fa-solid fa-shield-halved text-amber-400 mt-0.5"></i>
+                <div class="leading-relaxed">
+                    <span class="font-semibold text-slate-200">System Guardrails:</span> 
+                    Answers strictly from the candidate's JSON record or external Open Library API. Strictly barred from sending emails, scheduling meetings, speaking for Sharif SUT, or disclosing private records (GPA, phone, national ID).
+                </div>
             </div>
         </header>
 
-        <!-- Quick actions -->
-        <div class="flex flex-wrap gap-2 text-xs">
-            <button onclick="setQuery('Summarize your compiler project.')" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 rounded-lg transition">📌 Summarize compiler</button>
-            <button onclick="setQuery('Suggest what to read based on your courses.')" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 rounded-lg transition">📚 Suggest what to read (API)</button>
-            <button onclick="setQuery('Would you fit a Junior AI/Backend Developer role requiring Python and LLM skills?')" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 rounded-lg transition">💼 Check Job Fit</button>
-            <button onclick="setQuery('What is your GPA and phone number?')" class="bg-rose-950/60 hover:bg-rose-900/60 border border-rose-800 text-rose-300 px-3 py-1.5 rounded-lg transition">🚫 Test Refusal</button>
-            <button onclick="setQuery('Tell me about my project')" class="bg-amber-950/60 hover:bg-amber-900/60 border border-amber-800 text-amber-300 px-3 py-1.5 rounded-lg transition">❓ Test Clarification</button>
-            <button onclick="copyCurrentTrace()" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 px-2 py-1 rounded transition">
-                📋 Copy Trace for Submission
-            </button>
+        <!-- Projects Quick Bar (Showcases the 5 projects) -->
+        <div class="space-y-2">
+            <div class="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                <i class="fa-solid fa-layer-group text-indigo-400"></i> Featured Portfolio Projects
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 text-xs">
+                {% for proj in profile.projects %}
+                <button onclick="setQuery('Summarize project {{ proj.title }}. What was the stack?')" 
+                        class="p-2.5 rounded-xl glass-panel hover:border-indigo-500/50 hover:bg-slate-900 transition text-left group">
+                    <div class="font-medium text-slate-200 truncate group-hover:text-indigo-300 transition">{{ proj.title }}</div>
+                    <div class="text-[10px] text-slate-500 font-mono mt-0.5 truncate">{{ proj.stack | join(', ') }}</div>
+                </button>
+                {% endfor %}
+            </div>
         </div>
 
-        <!-- Chat Input Form -->
-        <form id="chatForm" onsubmit="handleAsk(event)" class="flex gap-2">
-            <input type="text" id="questionInput" placeholder="Ask a question about projects, reading suggestions, or job fit..." 
-                   class="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 transition">
-            <button type="submit" id="submitBtn" class="bg-indigo-600 hover:bg-indigo-500 font-semibold text-sm px-6 py-3 rounded-xl transition">
-                Ask
+        <!-- Pre-built Quick Prompt Buttons -->
+        <div class="space-y-2">
+            <div class="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                <i class="fa-solid fa-bolt text-amber-400"></i> Test Intent Queries
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+                <button onclick="setQuery('Summarize your Stardew Valley multiplayer game architecture and networking.')" 
+                        class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300 transition">
+                    🎮 Stardew 4-Player Sockets
+                </button>
+                <button onclick="setQuery('Explain the Dual-Issue SuperScalar processor project and its pipeline hazards.')" 
+                        class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300 transition">
+                    ⚡ SuperScalar Processor (Verilog)
+                </button>
+                <button onclick="setQuery('Suggest what books to read based on my Computer Architecture and OS courses.')" 
+                        class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-3 py-1.5 rounded-lg text-emerald-300 transition">
+                    📚 Suggest Books (Open Library API)
+                </button>
+                <button onclick="setQuery('Would you fit a Junior Game/Systems Developer role requiring C++, Java, and multithreading?')" 
+                        class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-3 py-1.5 rounded-lg text-indigo-300 transition">
+                    💼 Evaluate Job Fit
+                </button>
+                <button onclick="setQuery('What is your GPA and phone number?')" 
+                        class="bg-rose-950/40 hover:bg-rose-900/50 border border-rose-800/60 text-rose-300 px-3 py-1.5 rounded-lg transition">
+                    🚫 Test Refusal
+                </button>
+                <button onclick="setQuery('Tell me about my game project')" 
+                        class="bg-amber-950/40 hover:bg-amber-900/50 border border-amber-800/60 text-amber-300 px-3 py-1.5 rounded-lg transition">
+                    ❓ Test Clarification (3 Games)
+                </button>
+            </div>
+        </div>
+
+        <!-- Input Box -->
+        <form id="chatForm" onsubmit="handleAsk(event)" class="relative">
+            <input type="text" id="questionInput" 
+                   placeholder="Ask any question about projects, reading suggestions, or job fit..." 
+                   class="w-full bg-slate-900/90 border border-slate-800 rounded-2xl pl-5 pr-28 py-4 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition shadow-lg">
+            <button type="submit" id="submitBtn" 
+                    class="absolute right-2.5 top-2.5 bottom-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs px-5 rounded-xl transition flex items-center gap-1.5 shadow-md shadow-indigo-600/30">
+                <span>Ask AI</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
             </button>
         </form>
 
-        <!-- Output & Explainability Section -->
+        <!-- Response & Trace Section -->
         <div id="resultBox" class="hidden space-y-4">
             
             <!-- Answer Card -->
-            <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-lg">
-                <h3 class="text-xs uppercase font-bold text-slate-400 mb-2">Answer</h3>
-                <p id="answerText" class="text-slate-100 text-base leading-relaxed"></p>
+            <div class="glass-panel rounded-2xl p-6 shadow-xl border border-indigo-500/20">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                    <span class="text-xs uppercase font-bold tracking-wider text-indigo-400 flex items-center gap-1.5">
+                        <i class="fa-solid fa-comment-dots"></i> Grounded Answer
+                    </span>
+                    <button onclick="copySubmissionTrace()" 
+                            class="text-[11px] bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 px-2.5 py-1 rounded-lg transition flex items-center gap-1">
+                        <i class="fa-regular fa-copy"></i> Copy Trace for Submission
+                    </button>
+                </div>
+                <p id="answerText" class="text-slate-200 text-sm md:text-base leading-relaxed whitespace-pre-line"></p>
             </div>
 
-            <!-- Explainability Trace (Required by Assignment) -->
-            <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 font-mono text-xs space-y-3">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                    <span class="text-indigo-400 font-bold uppercase tracking-wider">Trace & Explainability Log</span>
-                    <span id="badgeCapability" class="px-2 py-0.5 rounded text-[10px]"></span>
+            <!-- Explainability Trace Inspector -->
+            <div class="bg-slate-950 rounded-2xl p-5 border border-slate-800/90 font-mono text-xs space-y-3 shadow-inner">
+                <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+                    <span class="text-slate-400 font-semibold flex items-center gap-2">
+                        <i class="fa-solid fa-terminal text-indigo-400"></i> Trace & Explainability Inspector
+                    </span>
+                    <span id="badgeCapability" class="px-2.5 py-0.5 rounded text-[11px] font-bold"></span>
                 </div>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-300">
                     <div>
-                        <span class="text-slate-500">Intent:</span> 
-                        <span id="traceIntent" class="text-amber-400"></span>
+                        <span class="text-slate-500">Recognized Intent:</span> 
+                        <span id="traceIntent" class="text-amber-400 font-semibold"></span>
                     </div>
                     <div>
-                        <span class="text-slate-500">External API:</span> 
-                        <span id="traceApi" class="text-emerald-400"></span>
+                        <span class="text-slate-500">External Service:</span> 
+                        <span id="traceApi" class="text-emerald-400 font-semibold"></span>
                     </div>
                     <div class="md:col-span-2">
-                        <span class="text-slate-500">Fields Read:</span> 
-                        <span id="traceFields" class="text-sky-300"></span>
+                        <span class="text-slate-500">Fields Read (Source of Truth):</span> 
+                        <div id="traceFields" class="text-sky-300 mt-0.5"></div>
                     </div>
                     <div class="md:col-span-2">
-                        <span class="text-slate-500">Missing/Restricted Facts:</span> 
-                        <span id="traceMissing" class="text-rose-400"></span>
+                        <span class="text-slate-500">Missing / Guarded Facts:</span> 
+                        <div id="traceMissing" class="text-rose-400 mt-0.5"></div>
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
 
     <script>
+        let currentTrace = null;
+
         function setQuery(text) {
-            document.getElementById('questionInput').value = text;
+            const input = document.getElementById('questionInput');
+            input.value = text;
+            input.focus();
         }
 
         async function handleAsk(e) {
@@ -101,7 +191,7 @@
             if(!q) return;
 
             btn.disabled = true;
-            btn.innerText = "Analyzing...";
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Reasoning...`;
 
             try {
                 const res = await fetch('/api/ask', {
@@ -110,42 +200,45 @@
                     body: JSON.stringify({ question: q })
                 });
                 const data = await res.json();
+                currentTrace = { question: q, ...data };
 
                 document.getElementById('resultBox').classList.remove('hidden');
                 document.getElementById('answerText').innerText = data.answer;
                 document.getElementById('traceIntent').innerText = data.intent;
                 document.getElementById('traceApi').innerText = data.external_api_used || "None";
-                document.getElementById('traceFields').innerText = data.fields_read?.length ? data.fields_read.join(", ") : "None";
-                document.getElementById('traceMissing').innerText = data.missing_facts?.length ? data.missing_facts.join(", ") : "None";
+                
+                const fieldsDiv = document.getElementById('traceFields');
+                fieldsDiv.innerText = data.fields_read?.length ? data.fields_read.join(", ") : "None";
+
+                const missingDiv = document.getElementById('traceMissing');
+                missingDiv.innerText = data.missing_facts?.length ? data.missing_facts.join(", ") : "None (All facts grounded)";
 
                 const capBadge = document.getElementById('badgeCapability');
                 capBadge.innerText = data.capability;
                 if(data.capability === 'refusal') {
-                    capBadge.className = "px-2 py-0.5 rounded bg-rose-950 text-rose-400 border border-rose-800";
+                    capBadge.className = "px-2.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800";
                 } else if(data.capability === 'clarify') {
-                    capBadge.className = "px-2 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-800";
+                    capBadge.className = "px-2.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800";
                 } else {
-                    capBadge.className = "px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800";
+                    capBadge.className = "px-2.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800";
                 }
 
+                // Scroll smoothly to results
+                document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
             } catch(err) {
-                alert("Request failed: " + err);
+                alert("Error connecting to server: " + err);
             } finally {
                 btn.disabled = false;
-                btn.innerText = "Ask";
+                btn.innerHTML = `<span>Ask AI</span><i class="fa-solid fa-arrow-right text-[10px]"></i>`;
             }
         }
 
-        let lastTraceData = null;
-
-        // داخل handleAsk بعد از دریافت داده این خط رو بذار:
-        // lastTraceData = { question: q, ...data };
-
-        function copyCurrentTrace() {
-            if(!lastTraceData) return alert("Ask a question first!");
-            const traceReport = `Question: ${lastTraceData.question}\nIntent: ${lastTraceData.intent}\nFields read: ${lastTraceData.fields_read.join(", ")}\nCapability: ${lastTraceData.capability}\nAnswer: ${lastTraceData.answer}`;
-            navigator.clipboard.writeText(traceReport);
-            alert("Trace copied to clipboard in official submission format!");
+        function copySubmissionTrace() {
+            if(!currentTrace) return;
+            const text = `Question: ${currentTrace.question}\nIntent: ${currentTrace.intent}\nFields read: ${currentTrace.fields_read?.join(", ") || "None"}\nCapability: ${currentTrace.capability}\nAnswer: ${currentTrace.answer}`;
+            navigator.clipboard.writeText(text);
+            alert("Trace copied to clipboard in official grading format!");
         }
     </script>
 </body>
