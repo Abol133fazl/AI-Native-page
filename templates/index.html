@@ -3,242 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ profile.personal_info.name }} | Sharif AI-Native Page</title>
+    <title>{{ profile.personal_info.name }} | AI Agent</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .glow-indigo {
-            box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.25);
-        }
+        .chat-scroll::-webkit-scrollbar { width: 5px; }
+        .chat-scroll::-webkit-scrollbar-track { background: transparent; }
+        .chat-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen py-8 px-4 font-sans selection:bg-indigo-500 selection:text-white">
-    <div class="max-w-4xl mx-auto space-y-6">
+<body class="bg-slate-950 text-slate-100 h-screen flex flex-col font-sans">
 
-        <!-- Top Header Profile Card -->
-        <header class="glass-panel glow-indigo rounded-2xl p-6 md:p-8 relative overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-xl font-black shadow-lg shadow-indigo-500/20">
-                        {{ profile.personal_info.name[0] }}
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <h1 class="text-2xl font-bold text-white tracking-tight">{{ profile.personal_info.name }}</h1>
-                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-950 text-emerald-400 border border-emerald-800">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span> Grounded Agent
-                            </span>
-                        </div>
-                        <p class="text-slate-400 text-xs mt-0.5">
-                            {{ profile.personal_info.degree }} &bull; <span class="text-slate-300">{{ profile.personal_info.university }}</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-2 text-xs font-mono">
-                    <a href="https://github.com/{{ profile.personal_info.github_username }}" target="_blank" 
-                       class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-300 transition flex items-center gap-1.5">
-                        <i class="fa-brands fa-github text-sm"></i> GitHub
-                    </a>
-                    <span class="px-3 py-1.5 rounded-lg bg-indigo-950/60 border border-indigo-800/60 text-indigo-300">
-                        Hamravesh Darkube
+    <!-- Top Navbar -->
+    <header class="bg-slate-900/90 backdrop-blur border-b border-slate-800 px-4 py-3 flex items-center justify-between z-10">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-bold text-white shadow-md">
+                {{ profile.personal_info.name[0] }}
+            </div>
+            <div>
+                <h1 class="text-sm font-bold text-white flex items-center gap-2">
+                    {{ profile.personal_info.name }}
+                    <span class="text-[10px] font-normal px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">
+                        ● Grounded Agent
                     </span>
+                </h1>
+                <p class="text-[11px] text-slate-400">{{ profile.personal_info.degree }} &bull; {{ profile.personal_info.university }}</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+            <span class="hidden sm:inline-block text-[11px] text-slate-400 bg-slate-800/80 px-2.5 py-1 rounded-lg border border-slate-700">
+                🛡️ Guardrails Active &bull; Rate-Limited
+            </span>
+            <a href="https://github.com/{{ profile.personal_info.github_username }}" target="_blank" 
+               class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5 text-xs">
+                <i class="fa-brands fa-github"></i> GitHub
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Chat Container -->
+    <main class="flex-1 max-w-4xl w-full mx-auto flex flex-col overflow-hidden p-4">
+        
+        <!-- Messages Area -->
+        <div id="chatContainer" class="flex-1 overflow-y-auto space-y-4 pr-2 chat-scroll pb-4">
+            
+            <!-- Welcome System Message -->
+            <div class="bg-slate-900/70 border border-slate-800/80 rounded-2xl p-4 text-xs text-slate-300 space-y-2">
+                <div class="flex items-center gap-2 font-semibold text-indigo-400">
+                    <i class="fa-solid fa-robot"></i> AI-Native Portfolio Assistant
+                </div>
+                <p class="text-slate-400 leading-relaxed">
+                    Hello! I answer strictly from {{ profile.personal_info.name }}'s verified university courses, projects, and skills.
+                    I am prohibited from hallucinating, sharing private records (GPA, phone), or taking unauthorized actions (sending emails/booking meetings).
+                </p>
+                <div class="pt-2 flex flex-wrap gap-1.5">
+                    <span class="text-[10px] text-slate-500 font-mono self-center">Try asking:</span>
+                    <button onclick="setAndSend('Summarize the Stardew Valley multiplayer game project.')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] px-2.5 py-1 rounded-lg border border-slate-700 transition">🎮 Stardew Multiplayer</button>
+                    <button onclick="setAndSend('Explain the Dual-Issue SuperScalar processor architecture.')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] px-2.5 py-1 rounded-lg border border-slate-700 transition">⚡ SuperScalar CPU</button>
+                    <button onclick="setAndSend('Suggest what books to read based on my courses.')" class="bg-slate-800 hover:bg-slate-700 text-emerald-300 text-[11px] px-2.5 py-1 rounded-lg border border-slate-700 transition">📚 Books (API)</button>
+                    <button onclick="setAndSend('What is your GPA and phone number?')" class="bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 text-[11px] px-2.5 py-1 rounded-lg border border-rose-800/60 transition">🚫 Test Refusal</button>
+                    <button onclick="setAndSend('Tell me about my game project')" class="bg-amber-950/40 hover:bg-amber-900/60 text-amber-300 text-[11px] px-2.5 py-1 rounded-lg border border-amber-800/60 transition">❓ Test Clarify</button>
                 </div>
             </div>
 
-            <!-- Guardrails Policy Banner -->
-            <div class="mt-5 p-3 rounded-xl bg-slate-900/90 border border-slate-800/80 text-xs text-slate-400 flex items-start gap-2.5">
-                <i class="fa-solid fa-shield-halved text-amber-400 mt-0.5"></i>
-                <div class="leading-relaxed">
-                    <span class="font-semibold text-slate-200">System Guardrails:</span> 
-                    Answers strictly from the candidate's JSON record or external Open Library API. Strictly barred from sending emails, scheduling meetings, speaking for Sharif SUT, or disclosing private records (GPA, phone, national ID).
-                </div>
-            </div>
-        </header>
-
-        <!-- Projects Quick Bar (Showcases the 5 projects) -->
-        <div class="space-y-2">
-            <div class="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                <i class="fa-solid fa-layer-group text-indigo-400"></i> Featured Portfolio Projects
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 text-xs">
-                {% for proj in profile.projects %}
-                <button onclick="setQuery('Summarize project {{ proj.title }}. What was the stack?')" 
-                        class="p-2.5 rounded-xl glass-panel hover:border-indigo-500/50 hover:bg-slate-900 transition text-left group">
-                    <div class="font-medium text-slate-200 truncate group-hover:text-indigo-300 transition">{{ proj.title }}</div>
-                    <div class="text-[10px] text-slate-500 font-mono mt-0.5 truncate">{{ proj.stack | join(', ') }}</div>
-                </button>
-                {% endfor %}
-            </div>
+            <!-- Dynamic Messages will append here -->
         </div>
 
-        <!-- Pre-built Quick Prompt Buttons -->
-        <div class="space-y-2">
-            <div class="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                <i class="fa-solid fa-bolt text-amber-400"></i> Test Intent Queries
-            </div>
-            <div class="flex flex-wrap gap-2 text-xs">
-                <button onclick="setQuery('Summarize your Stardew Valley multiplayer game architecture and networking.')" 
-                        class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300 transition">
-                    🎮 Stardew 4-Player Sockets
-                </button>
-                <button onclick="setQuery('Explain the Dual-Issue SuperScalar processor project and its pipeline hazards.')" 
-                        class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300 transition">
-                    ⚡ SuperScalar Processor (Verilog)
-                </button>
-                <button onclick="setQuery('Suggest what books to read based on my Computer Architecture and OS courses.')" 
-                        class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-3 py-1.5 rounded-lg text-emerald-300 transition">
-                    📚 Suggest Books (Open Library API)
-                </button>
-                <button onclick="setQuery('Would you fit a Junior Game/Systems Developer role requiring C++, Java, and multithreading?')" 
-                        class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-3 py-1.5 rounded-lg text-indigo-300 transition">
-                    💼 Evaluate Job Fit
-                </button>
-                <button onclick="setQuery('What is your GPA and phone number?')" 
-                        class="bg-rose-950/40 hover:bg-rose-900/50 border border-rose-800/60 text-rose-300 px-3 py-1.5 rounded-lg transition">
-                    🚫 Test Refusal
-                </button>
-                <button onclick="setQuery('Tell me about my game project')" 
-                        class="bg-amber-950/40 hover:bg-amber-900/50 border border-amber-800/60 text-amber-300 px-3 py-1.5 rounded-lg transition">
-                    ❓ Test Clarification (3 Games)
-                </button>
-            </div>
+        <!-- Typing Indicator -->
+        <div id="typingIndicator" class="hidden text-xs text-slate-400 py-2 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></span>
+            Agent is reasoning and checking grounding records...
         </div>
 
-        <!-- Input Box -->
-        <form id="chatForm" onsubmit="handleAsk(event)" class="relative">
-            <input type="text" id="questionInput" 
-                   placeholder="Ask any question about projects, reading suggestions, or job fit..." 
-                   class="w-full bg-slate-900/90 border border-slate-800 rounded-2xl pl-5 pr-28 py-4 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition shadow-lg">
-            <button type="submit" id="submitBtn" 
-                    class="absolute right-2.5 top-2.5 bottom-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs px-5 rounded-xl transition flex items-center gap-1.5 shadow-md shadow-indigo-600/30">
-                <span>Ask AI</span>
-                <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
+        <!-- Input Bar -->
+        <form id="chatForm" onsubmit="sendMessage(event)" class="pt-2">
+            <div class="relative flex items-center">
+                <input type="text" id="userInput" maxlength="350"
+                       placeholder="Ask about projects, courses, book suggestions, or job fit..." 
+                       class="w-full bg-slate-900 border border-slate-800 rounded-2xl pl-4 pr-24 py-3.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition shadow-inner">
+                <button type="submit" id="sendBtn"
+                        class="absolute right-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow">
+                    <span>Send</span>
+                    <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                </button>
+            </div>
+            <div class="text-[10px] text-slate-500 flex justify-between px-2 pt-1.5">
+                <span>Rate limited to 6 req/min &bull; In-Memory Cached</span>
+                <span id="charCount">0/350</span>
+            </div>
         </form>
 
-        <!-- Response & Trace Section -->
-        <div id="resultBox" class="hidden space-y-4">
-            
-            <!-- Answer Card -->
-            <div class="glass-panel rounded-2xl p-6 shadow-xl border border-indigo-500/20">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
-                    <span class="text-xs uppercase font-bold tracking-wider text-indigo-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-comment-dots"></i> Grounded Answer
-                    </span>
-                    <button onclick="copySubmissionTrace()" 
-                            class="text-[11px] bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 px-2.5 py-1 rounded-lg transition flex items-center gap-1">
-                        <i class="fa-regular fa-copy"></i> Copy Trace for Submission
-                    </button>
-                </div>
-                <p id="answerText" class="text-slate-200 text-sm md:text-base leading-relaxed whitespace-pre-line"></p>
-            </div>
-
-            <!-- Explainability Trace Inspector -->
-            <div class="bg-slate-950 rounded-2xl p-5 border border-slate-800/90 font-mono text-xs space-y-3 shadow-inner">
-                <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
-                    <span class="text-slate-400 font-semibold flex items-center gap-2">
-                        <i class="fa-solid fa-terminal text-indigo-400"></i> Trace & Explainability Inspector
-                    </span>
-                    <span id="badgeCapability" class="px-2.5 py-0.5 rounded text-[11px] font-bold"></span>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-300">
-                    <div>
-                        <span class="text-slate-500">Recognized Intent:</span> 
-                        <span id="traceIntent" class="text-amber-400 font-semibold"></span>
-                    </div>
-                    <div>
-                        <span class="text-slate-500">External Service:</span> 
-                        <span id="traceApi" class="text-emerald-400 font-semibold"></span>
-                    </div>
-                    <div class="md:col-span-2">
-                        <span class="text-slate-500">Fields Read (Source of Truth):</span> 
-                        <div id="traceFields" class="text-sky-300 mt-0.5"></div>
-                    </div>
-                    <div class="md:col-span-2">
-                        <span class="text-slate-500">Missing / Guarded Facts:</span> 
-                        <div id="traceMissing" class="text-rose-400 mt-0.5"></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
+    </main>
 
     <script>
-        let currentTrace = null;
+        const chatContainer = document.getElementById('chatContainer');
+        const userInput = document.getElementById('userInput');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const sendBtn = document.getElementById('sendBtn');
+        const charCount = document.getElementById('charCount');
 
-        function setQuery(text) {
-            const input = document.getElementById('questionInput');
-            input.value = text;
-            input.focus();
+        userInput.addEventListener('input', () => {
+            charCount.innerText = `${userInput.value.length}/350`;
+        });
+
+        function setAndSend(text) {
+            userInput.value = text;
+            charCount.innerText = `${text.length}/350`;
+            document.getElementById('chatForm').dispatchEvent(new Event('submit'));
         }
 
-        async function handleAsk(e) {
-            e.preventDefault();
-            const input = document.getElementById('questionInput');
-            const btn = document.getElementById('submitBtn');
-            const q = input.value.trim();
-            if(!q) return;
+        function appendUserMessage(text) {
+            const div = document.createElement('div');
+            div.className = "flex justify-end";
+            div.innerHTML = `
+                <div class="bg-indigo-600 text-white text-sm rounded-2xl rounded-tr-sm px-4 py-3 max-w-[85%] shadow-md leading-relaxed">
+                    ${escapeHtml(text)}
+                </div>
+            `;
+            chatContainer.appendChild(div);
+            scrollBottom();
+        }
 
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Reasoning...`;
+        let traceCounter = 0;
+        function appendBotMessage(data, question) {
+            traceCounter++;
+            const traceId = `trace_${traceCounter}`;
+            const div = document.createElement('div');
+            div.className = "flex justify-start";
+
+            let badgeColor = "bg-emerald-950 text-emerald-400 border-emerald-800";
+            if(data.capability === 'refusal') badgeColor = "bg-rose-950 text-rose-300 border-rose-800";
+            if(data.capability === 'clarify') badgeColor = "bg-amber-950 text-amber-300 border-amber-800";
+
+            div.innerHTML = `
+                <div class="bg-slate-900 border border-slate-800 text-slate-200 text-sm rounded-2xl rounded-tl-sm p-4 max-w-[90%] shadow-lg space-y-3">
+                    <p class="leading-relaxed whitespace-pre-line">${escapeHtml(data.answer)}</p>
+                    
+                    <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2 text-xs">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded border ${badgeColor}">
+                                ${data.capability}
+                            </span>
+                            ${data.from_cache ? '<span class="text-[10px] bg-slate-800 text-sky-400 px-1.5 py-0.5 rounded">⚡ Cached</span>' : ''}
+                        </div>
+                        <button onclick="toggleTrace('${traceId}')" class="text-indigo-400 hover:text-indigo-300 text-[11px] font-mono flex items-center gap-1 transition">
+                            <i class="fa-solid fa-magnifying-glass"></i> Trace
+                        </button>
+                    </div>
+
+                    <!-- Accordion Trace Inspector -->
+                    <div id="${traceId}" class="hidden bg-slate-950 rounded-xl p-3 text-[11px] font-mono space-y-1.5 border border-slate-800 text-slate-300">
+                        <div class="flex justify-between items-center pb-1 border-b border-slate-800">
+                            <span class="text-indigo-400 font-bold uppercase">Explainability Trace</span>
+                            <button onclick="copySpecificTrace('${escapeHtml(question)}', ${escapeHtml(JSON.stringify(data))})" class="text-[10px] text-slate-400 hover:text-white">
+                                <i class="fa-regular fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div><span class="text-slate-500">Intent:</span> <span class="text-amber-400">${data.intent}</span></div>
+                        <div><span class="text-slate-500">External API:</span> <span class="text-emerald-400">${data.external_api_used || 'None'}</span></div>
+                        <div><span class="text-slate-500">Fields Read:</span> <span class="text-sky-300">${data.fields_read?.length ? data.fields_read.join(', ') : 'None'}</span></div>
+                        <div><span class="text-slate-500">Missing/Guarded:</span> <span class="text-rose-400">${data.missing_facts?.length ? data.missing_facts.join(', ') : 'None'}</span></div>
+                    </div>
+                </div>
+            `;
+            chatContainer.appendChild(div);
+            scrollBottom();
+        }
+
+        function toggleTrace(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
+
+        function copySpecificTrace(q, d) {
+            const str = `Question: ${q}\nIntent: ${d.intent}\nFields read: ${d.fields_read?.join(', ') || 'None'}\nCapability: ${d.capability}\nAnswer: ${d.answer}`;
+            navigator.clipboard.writeText(str);
+            alert("Trace copied to clipboard!");
+        }
+
+        function scrollBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        async function sendMessage(e) {
+            e.preventDefault();
+            const text = userInput.value.trim();
+            if(!text) return;
+
+            appendUserMessage(text);
+            userInput.value = "";
+            charCount.innerText = "0/350";
+            sendBtn.disabled = true;
+            typingIndicator.classList.remove('hidden');
+            scrollBottom();
 
             try {
-                const res = await fetch('/api/ask', {
+                const res = await fetch('/api/chat', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ question: q })
+                    body: JSON.stringify({ question: text })
                 });
                 const data = await res.json();
-                currentTrace = { question: q, ...data };
-
-                document.getElementById('resultBox').classList.remove('hidden');
-                document.getElementById('answerText').innerText = data.answer;
-                document.getElementById('traceIntent').innerText = data.intent;
-                document.getElementById('traceApi').innerText = data.external_api_used || "None";
-                
-                const fieldsDiv = document.getElementById('traceFields');
-                fieldsDiv.innerText = data.fields_read?.length ? data.fields_read.join(", ") : "None";
-
-                const missingDiv = document.getElementById('traceMissing');
-                missingDiv.innerText = data.missing_facts?.length ? data.missing_facts.join(", ") : "None (All facts grounded)";
-
-                const capBadge = document.getElementById('badgeCapability');
-                capBadge.innerText = data.capability;
-                if(data.capability === 'refusal') {
-                    capBadge.className = "px-2.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800";
-                } else if(data.capability === 'clarify') {
-                    capBadge.className = "px-2.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800";
-                } else {
-                    capBadge.className = "px-2.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800";
-                }
-
-                // Scroll smoothly to results
-                document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
+                appendBotMessage(data, text);
             } catch(err) {
-                alert("Error connecting to server: " + err);
+                appendBotMessage({
+                    answer: "Network error communicating with the agent server.",
+                    intent: "error",
+                    capability: "out_of_scope",
+                    fields_read: [],
+                    missing_facts: []
+                }, text);
             } finally {
-                btn.disabled = false;
-                btn.innerHTML = `<span>Ask AI</span><i class="fa-solid fa-arrow-right text-[10px]"></i>`;
+                typingIndicator.classList.add('hidden');
+                sendBtn.disabled = false;
             }
-        }
-
-        function copySubmissionTrace() {
-            if(!currentTrace) return;
-            const text = `Question: ${currentTrace.question}\nIntent: ${currentTrace.intent}\nFields read: ${currentTrace.fields_read?.join(", ") || "None"}\nCapability: ${currentTrace.capability}\nAnswer: ${currentTrace.answer}`;
-            navigator.clipboard.writeText(text);
-            alert("Trace copied to clipboard in official grading format!");
         }
     </script>
 </body>
